@@ -1,5 +1,6 @@
 package com.jordylangen.woodstorage;
 
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -43,7 +44,7 @@ public class FileStorage implements Storage {
     public synchronized void save(LogEntry logEntry) {
         int lineCount = getLineCount();
         ensureMaxLineCount(lineCount);
-        write(logEntry);
+        write(file, logEntry);
 
         if (replaySubject != null) {
             replaySubject.onNext(logEntry);
@@ -102,7 +103,7 @@ public class FileStorage implements Storage {
         }
     }
 
-    private synchronized void write(LogEntry logEntry) {
+    private synchronized void write(File file, LogEntry logEntry) {
         try {
             FileWriter fileWriter = new FileWriter(file, true);
             BufferedWriter out = new BufferedWriter(fileWriter);
@@ -143,6 +144,32 @@ public class FileStorage implements Storage {
         }
 
         return replaySubject.asObservable();
+    }
+
+    @Override
+    public File copyToSDCard() {
+        final String localFilePath = storageConfig.getPathToFile();
+        final String fileName = localFilePath.substring(localFilePath.lastIndexOf("/") + 1);
+        final File externalFile = new File(Environment.getExternalStorageDirectory(), fileName);
+
+        try {
+            if (externalFile.exists()) {
+                if (externalFile.delete()) {
+                    externalFile.createNewFile();
+                }
+            } else {
+                externalFile.createNewFile();
+            }
+
+            final List<LogEntry> logEntries = loadLogsFromFile();
+            for (LogEntry logEntry : logEntries) {
+                write(externalFile, logEntry);
+            }
+            return externalFile;
+        } catch (IOException exception) {
+            Log.e(TAG, "could not write to file at " + externalFile.getAbsolutePath(), exception);
+        }
+        return null;
     }
 
     @Override

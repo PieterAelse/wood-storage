@@ -10,4 +10,11 @@
     <string name="woodstorage_action_filter">Filter</string>
     <string name="woodstorage_action_sort">Sort Order</string>
     <string name="woodstorage_action_clear">Clear</string>
+    <string name="woodstorage_action_save">Save</string>
+    <string name="woodstorage_action_share">Share</string>
+
+    <string name="woodstorage_title_share_file">Share log file</string>
+    <string name="woodstorage_message_log_saved_to_sd">Logfile successfully saved to %1$s</string>
+    <string name="woodstorage_message_log_saved_to_sd_failed">Failed saving log to SD</string>
+    <string name="woodstorage_error_no_app_for_file">No app found to share file with</string>
 </resources>

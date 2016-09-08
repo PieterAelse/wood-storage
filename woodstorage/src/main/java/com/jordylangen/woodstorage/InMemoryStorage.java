@@ -1,5 +1,6 @@
 package com.jordylangen.woodstorage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,11 @@ public class InMemoryStorage implements Storage {
     @Override
     public Observable<LogEntry> load() {
         return Observable.from(logEntries);
+    }
+
+    @Override
+    public File copyToSDCard() {
+        return null;
     }
 
     @Override
