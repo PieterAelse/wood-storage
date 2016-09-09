@@ -1,6 +1,9 @@
 package com.jordylangen.woodstorage
 
+import android.os.Environment
 import android.util.Log
+import mockit.Mock
+import mockit.MockUp
 import org.junit.Rule
 import org.junit.rules.TestName
 import rx.functions.Action1
@@ -139,5 +142,36 @@ class FileStorageSpec extends RxSpecification {
 
         then:
         logs.isEmpty()
+    }
+
+    def "should copy log file to SD storage"() {
+        given:
+        def pathToFile = createFileForCurrentTest()
+        def maxCount = 10
+        def deleteCount = 4
+        def fileStorage = new FileStorage(new StorageConfig(maxCount, deleteCount, pathToFile))
+        new MockUp<Environment>() {
+            @Mock
+            File getExternalStorageDirectory() {
+                return new File(PATH_TO_DIRECTORY + "/sdcard/")
+            }
+        }
+
+        when:
+        for (def index = 0; index < maxCount + 1; index++) {
+            fileStorage.save(new LogEntry("spec", 0, Integer.toString(index)))
+        }
+
+        and:
+        def originalFileCount = fileStorage.getLineCount()
+        def copiedFile = fileStorage.copyToSDCard()
+        fileStorage.file = copiedFile
+        def copiedFileLineCount = fileStorage.getLineCount()
+
+        then:
+        copiedFile != null
+        copiedFile.exists()
+        copiedFile.getPath().substring(copiedFile.getPath().lastIndexOf("\\") + 1).equals(pathToFile.substring(pathToFile.lastIndexOf("/") + 1))
+        originalFileCount == copiedFileLineCount
     }
 }

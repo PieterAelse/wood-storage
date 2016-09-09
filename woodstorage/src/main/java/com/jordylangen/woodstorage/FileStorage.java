@@ -105,16 +105,16 @@ public class FileStorage implements Storage {
         }
     }
 
-    private synchronized void write(File file, LogEntry logEntry) {
+    private synchronized void write(File fileToWriteTo, LogEntry logEntry) {
         try {
-            FileWriter fileWriter = new FileWriter(file, true);
+            FileWriter fileWriter = new FileWriter(fileToWriteTo, true);
             BufferedWriter out = new BufferedWriter(fileWriter);
             out.write(logEntry.serialize());
             out.write("\n");
             out.flush();
             out.close();
         } catch (IOException exception) {
-            Log.e(TAG, "could not write to file at " + file.getAbsolutePath(), exception);
+            Log.e(TAG, "could not write to file at " + fileToWriteTo.getAbsolutePath(), exception);
         }
     }
 
@@ -155,6 +155,7 @@ public class FileStorage implements Storage {
         final File externalFile = new File(Environment.getExternalStorageDirectory(), fileName);
 
         try {
+            externalFile.mkdirs();
             if (externalFile.exists()) {
                 if (externalFile.delete()) {
                     externalFile.createNewFile();

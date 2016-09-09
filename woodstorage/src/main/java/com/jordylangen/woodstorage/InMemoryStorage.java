@@ -32,6 +32,7 @@ public class InMemoryStorage implements Storage {
 
     @Override
     public File copyToSDCard() {
+        // TODO: implement when InMemoryStorage isn't used as backup to no File access
         return null;
     }
 
