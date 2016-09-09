@@ -1,6 +1,7 @@
 package com.jordylangen.woodstorage.view;
 
 import android.content.Context;
+import android.support.v7.app.AlertDialog;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -10,14 +11,13 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
 import com.jordylangen.woodstorage.LogEntry;
 import com.jordylangen.woodstorage.R;
 
-public class WoodStorageView extends LinearLayout implements WoodStorageContract.View {
-
-    private WoodStorageContract.Presenter presenter;
+public class WoodStorageView extends BaseView<WoodStorageContract.View, WoodStorageContract.Presenter> implements WoodStorageContract.View {
 
     private LogEntryAdapter adapter;
 
@@ -34,28 +34,17 @@ public class WoodStorageView extends LinearLayout implements WoodStorageContract
     }
 
     @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-
+    protected void setup() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.woodstorage_overview_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new LogEntryAdapter();
         recyclerView.setAdapter(adapter);
-
-        presenter = (WoodStorageContract.Presenter) PresenterCache.get(getId());
-        if (presenter == null) {
-            presenter = new WoodStoragePresenter();
-            PresenterCache.put(getId(), presenter);
-        }
-
-        presenter.setup(this);
     }
 
     @Override
-    protected void onDetachedFromWindow() {
-        presenter.teardown();
-        super.onDetachedFromWindow();
+    protected WoodStorageContract.Presenter newPresenter() {
+        return new WoodStoragePresenter();
     }
 
     @Override
@@ -71,6 +60,15 @@ public class WoodStorageView extends LinearLayout implements WoodStorageContract
     @Override
     public void clear() {
         adapter.clear();
+    }
+
+    @Override
+    public void showTagFilterDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
+                .setView(LayoutInflater.from(getContext()).inflate(R.layout.view_tag_filter, null))
+                .create();
+
+        dialog.show();
     }
 
     @Override

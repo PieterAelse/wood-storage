@@ -2,5 +2,5 @@
 <resources>
     <color name="woodstorage_color_primary">#3F51B5</color>
     <color name="woodstorage_color_primary_dark">#303F9F</color>
-    <color name="woodstorage_color_accent">#FF4081</color>
+    <color name="woodstorage_color_accent">#303F9F</color>
 </resources>

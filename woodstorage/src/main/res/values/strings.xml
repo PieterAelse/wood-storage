@@ -13,6 +13,8 @@
     <string name="woodstorage_action_save">Save</string>
     <string name="woodstorage_action_share">Share</string>
 
+    <string name="dialog_tag_filter_title">Only show the following tags</string>
+
     <string name="woodstorage_title_share_file">Share log file</string>
     <string name="woodstorage_message_log_saved_to_sd">Logfile successfully saved to %1$s</string>
     <string name="woodstorage_message_log_saved_to_sd_failed">Failed saving log to SD</string>

@@ -15,6 +15,8 @@ public interface WoodStorageContract {
 
         void clear();
 
+        void showTagFilterDialog();
+
         void showSnackbar(@StringRes int resId, Object... formatArgs);
     }
 

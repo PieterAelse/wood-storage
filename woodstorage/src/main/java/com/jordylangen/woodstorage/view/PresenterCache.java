@@ -1,18 +1,19 @@
 package com.jordylangen.woodstorage.view;
 
-import android.util.SparseArray;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PresenterCache {
 
-    private final static SparseArray<Contract.Presenter> PRESENTERS = new SparseArray<>();
+    private final static Map<Integer, Contract.Presenter> PRESENTERS = new HashMap<>();
 
     static void put(int id, Contract.Presenter presenter) {
         PRESENTERS.put(id, presenter);
     }
 
-    public static Contract.Presenter get(int id) {
-        if (PRESENTERS.indexOfKey(id) >= 0) {
-            return PRESENTERS.get(id);
+    public static <P extends Contract.Presenter> P get(int id) {
+        if (PRESENTERS.containsKey(id)) {
+            return (P) PRESENTERS.get(id);
         }
 
         return null;

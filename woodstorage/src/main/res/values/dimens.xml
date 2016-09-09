@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <dimen name="activity_padding">16dp</dimen>
     <dimen name="text_padding">8dp</dimen>
     <dimen name="row_padding">4dp</dimen>
-
+    <dimen name="dialog_padding">24dp</dimen>
+    <dimen name="dialog_title_padding">10dp</dimen>
+    <dimen name="default_row_height">48dp</dimen>
 </resources>

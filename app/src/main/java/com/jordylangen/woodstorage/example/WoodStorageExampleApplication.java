@@ -14,5 +14,13 @@ public class WoodStorageExampleApplication extends Application {
 
         Timber.plant(new Timber.DebugTree());
         Timber.plant(WoodStorageFactory.getInstance(this));
+
+        Timber.d("example application started");
+    }
+
+    @Override
+    public void onTerminate() {
+        Timber.d("example application stopped");
+        super.onTerminate();
     }
 }
