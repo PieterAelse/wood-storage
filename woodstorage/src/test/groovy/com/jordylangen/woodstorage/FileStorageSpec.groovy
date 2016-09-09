@@ -171,7 +171,6 @@ class FileStorageSpec extends RxSpecification {
         then:
         copiedFile != null
         copiedFile.exists()
-        copiedFile.getPath().substring(copiedFile.getPath().lastIndexOf("\\") + 1).equals(pathToFile.substring(pathToFile.lastIndexOf("/") + 1))
         originalFileCount == copiedFileLineCount
     }
 }
