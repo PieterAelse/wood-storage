@@ -40,13 +40,6 @@ public class LogEntryAdapter extends RecyclerView.Adapter<LogEntryAdapter.LogEnt
         holder.priorityTextView.setText(getPriorityTextResource(log));
         holder.timestampTextView.setText(TIMESTAMP_FORMAT.format(log.getTimeStamp()));
 
-        boolean hasException = !TextUtils.isEmpty(log.getException());
-        holder.exceptionTextView.setVisibility(hasException ? View.VISIBLE : View.GONE);
-
-        if (hasException) {
-            holder.exceptionTextView.setText(log.getException());
-        }
-
         int color;
         if (tagColors.containsKey(log.getTag())) {
             color = tagColors.get(log.getTag());
@@ -99,7 +92,6 @@ public class LogEntryAdapter extends RecyclerView.Adapter<LogEntryAdapter.LogEnt
         private TextView tagTextView;
         private TextView priorityTextView;
         private TextView messageTextView;
-        private TextView exceptionTextView;
         private TextView timestampTextView;
 
         public LogEntryViewHolder(View itemView) {
@@ -109,7 +101,6 @@ public class LogEntryAdapter extends RecyclerView.Adapter<LogEntryAdapter.LogEnt
             tagTextView = (TextView) itemView.findViewById(R.id.log_tag);
             priorityTextView = (TextView) itemView.findViewById(R.id.log_priority);
             messageTextView = (TextView) itemView.findViewById(R.id.log_message);
-            exceptionTextView = (TextView) itemView.findViewById(R.id.log_exception);
             timestampTextView = (TextView) itemView.findViewById(R.id.log_timestamp);
         }
     }

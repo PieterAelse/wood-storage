@@ -24,6 +24,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, WoodStorageViewActivity.class));
             }
         });
+
+        findViewById(R.id.button_log_exception).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Timber.e(new Throwable("Something horrible happened!"), "oh noes, an exception!");
+            }
+        });
     }
 
     @Override

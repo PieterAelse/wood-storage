@@ -13,7 +13,7 @@ public class WoodStorageTree extends Timber.DebugTree {
 
     @Override
     protected void log(int priority, String tag, String message, Throwable t) {
-        LogEntry logEntry = new LogEntry(tag, priority, message, t);
+        LogEntry logEntry = new LogEntry(tag, priority, message);
         logStatementPublishSubject.onNext(logEntry);
     }
 }

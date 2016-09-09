@@ -39,7 +39,7 @@ class FileStorageSpec extends RxSpecification {
         given:
         def pathToFile = createFileForCurrentTest()
         def fileStorage = new FileStorage(new StorageConfig(10, 2, pathToFile))
-        def log = new LogEntry("fileStorageSpec", Log.DEBUG, "first log", null)
+        def log = new LogEntry("fileStorageSpec", Log.DEBUG, "first log")
 
         when:
         fileStorage.save(log)
@@ -69,7 +69,7 @@ class FileStorageSpec extends RxSpecification {
 
         when:
         for (def index = 0; index < maxCount + 1; index++) {
-            fileStorage.save(new LogEntry("spec", 0, Integer.toString(index), null))
+            fileStorage.save(new LogEntry("spec", 0, Integer.toString(index)))
         }
 
         List<LogEntry> logs = []
@@ -91,7 +91,7 @@ class FileStorageSpec extends RxSpecification {
         def pathToFile = createFileForCurrentTest()
 
         def fileStorage = new FileStorage(new StorageConfig(10, 2, pathToFile))
-        def log = new LogEntry("fileStorageSpec", Log.DEBUG, "first log", null)
+        def log = new LogEntry("fileStorageSpec", Log.DEBUG, "first log")
 
         when:
         fileStorage.save(log)
@@ -122,7 +122,7 @@ class FileStorageSpec extends RxSpecification {
         def fileStorage = new FileStorage(new StorageConfig(42, 23, createFileForCurrentTest()))
 
         when:
-        fileStorage.save(new LogEntry("tag", 0, "u no see this", null))
+        fileStorage.save(new LogEntry("tag", 0, "u no see this"))
         fileStorage.load().subscribe(new TestSubscriber<LogEntry>())
 
         and:

@@ -8,27 +8,26 @@ import java.util.Locale;
 
 public class LogEntry {
 
-    private static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyMMddHHmmss", Locale.ENGLISH);
+    static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyMMddHHmmss", Locale.ENGLISH);
 
-    private static final String SEPARATOR = "``";
-    private static final String NULL = "null";
-
+    static final String SEPARATOR = "``";
+    static final String NEWLINE = "\n";
+    static final String NEWLINE_REPLACEMENT = "~~";
+    static final String NULL = "null";
 
     private Date timeStamp;
     private String tag;
     private int priority;
     private String message;
-    private String exception;
 
-    public LogEntry(String tag, int priority, String message, Throwable throwable) {
-        this(tag, priority, message, new Date(), throwable != null ? throwable.getMessage() : null);
+    public LogEntry(String tag, int priority, String message) {
+        this(tag, priority, message, new Date());
     }
 
-    private LogEntry(String tag, int priority, String message, Date timeStamp, String exception) {
+    private LogEntry(String tag, int priority, String message, Date timeStamp) {
         this.tag = tag;
         this.priority = priority;
         this.message = message;
-        this.exception = exception;
         this.timeStamp = timeStamp;
     }
 
@@ -44,16 +43,12 @@ public class LogEntry {
         return message;
     }
 
-    public String getException() {
-        return exception;
-    }
-
     public Date getTimeStamp() {
         return timeStamp;
     }
 
     String serialize() {
-        return tag + SEPARATOR + priority + SEPARATOR + message + SEPARATOR + DATE_TIME_FORMAT.format(timeStamp) + SEPARATOR + exception;
+        return tag + SEPARATOR + priority + SEPARATOR + removeNewLines(message) + SEPARATOR + DATE_TIME_FORMAT.format(timeStamp);
     }
 
     static LogEntry deserialize(String line) {
@@ -61,7 +56,7 @@ public class LogEntry {
 
         String tag = values[0];
         int priority = Integer.parseInt(values[1]);
-        String message = values[2];
+        String message = reAddNewLines(values[2]);
         Date timeStamp;
         try {
             timeStamp = DATE_TIME_FORMAT.parse(values[3]);
@@ -69,17 +64,28 @@ public class LogEntry {
             timeStamp = new Date();
         }
 
-        String exception = null;
-        if (values.length == 5) {
-            exception = values[4];
+        return new LogEntry(NULL.equals(tag) ? null : tag, priority, NULL.equals(message) ? null : message, timeStamp);
+    }
+
+    private static String removeNewLines(String value) {
+        if (value == null || value.isEmpty()) {
+            return value;
         }
 
-        return new LogEntry(NULL.equals(tag) ? null : tag, priority, NULL.equals(message) ? null : message, timeStamp, NULL.equals(exception) ? null : exception);
+        return value.replace(NEWLINE, NEWLINE_REPLACEMENT);
+    }
+
+    private static String reAddNewLines(String value) {
+        if (value == null || value.isEmpty()) {
+            return value;
+        }
+
+        return value.replace(NEWLINE_REPLACEMENT, NEWLINE);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(new Object[]{tag, priority, message, timeStamp, exception});
+        return Arrays.hashCode(new Object[]{tag, priority, message, timeStamp});
     }
 
     @Override
@@ -97,8 +103,7 @@ public class LogEntry {
         return equals(tag, other.tag) &&
                 equals(priority, other.priority) &&
                 equals(message, other.message) &&
-                equals(DATE_TIME_FORMAT.format(timeStamp), DATE_TIME_FORMAT.format(other.timeStamp)) &&
-                equals(exception, other.exception);
+                equals(DATE_TIME_FORMAT.format(timeStamp), DATE_TIME_FORMAT.format(other.timeStamp));
     }
 
     private static boolean equals(Object a, Object b) {

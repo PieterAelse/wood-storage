@@ -38,7 +38,7 @@ class WoodStoragePresenterSpec extends RxSpecification {
         def logs = []
 
         for (def index = 0; index < count; index++) {
-            logs.add(new LogEntry("spec", 0, Integer.toString(index), null))
+            logs.add(new LogEntry("spec", 0, Integer.toString(index)))
         }
 
         def observable = Observable.from(logs)
@@ -57,7 +57,7 @@ class WoodStoragePresenterSpec extends RxSpecification {
         def logs = []
 
         for (def index = 0; index < count; index++) {
-            logs.add(new LogEntry("spec", 0, Integer.toString(index), null))
+            logs.add(new LogEntry("spec", 0, Integer.toString(index)))
         }
 
         def observable = Observable.from(logs)

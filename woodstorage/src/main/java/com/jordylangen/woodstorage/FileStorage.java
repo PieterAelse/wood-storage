@@ -56,7 +56,9 @@ public class FileStorage implements Storage {
             FileReader fileReader = new FileReader(file);
             LineNumberReader lineNumberReader = new LineNumberReader(fileReader);
             while ((lineNumberReader.readLine()) != null) ;
-            return lineNumberReader.getLineNumber();
+            int lineCount = lineNumberReader.getLineNumber();
+            lineNumberReader.close();
+            return lineCount;
         } catch (IOException exception) {
             Log.e(TAG, "could not get the line count for " + file.getAbsolutePath(), exception);
             return -1;
@@ -179,8 +181,14 @@ public class FileStorage implements Storage {
                 replaySubject.onCompleted();
                 replaySubject = null;
             }
+
             if (file.delete()) {
                 file.createNewFile();
+            } else {
+                // for some reason we cannot delete the file (access rights)
+                // so we just write "nothing" to the file, same end result
+                FileWriter fileWriter = new FileWriter(file, false);
+                fileWriter.close();
             }
         } catch (IOException exception) {
             Log.e(TAG, "could not write to file at " + file.getAbsolutePath(), exception);
@@ -199,6 +207,8 @@ public class FileStorage implements Storage {
                 LogEntry logEntry = LogEntry.deserialize(line);
                 logs.add(logEntry);
             }
+
+            in.close();
         } catch (IOException exception) {
             Log.e(TAG, "could not write to file at " + file.getAbsolutePath(), exception);
             return new ArrayList<>();
