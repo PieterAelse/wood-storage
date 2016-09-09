@@ -1,4 +1,4 @@
-# Wood Storage
+# Wood Storage [![Build Status](https://travis-ci.org/JordyLangen/wood-storage.svg?branch=master)](https://travis-ci.org/JordyLangen/wood-storage)
 
 Persistent storage for Timber including an overview activity
 
@@ -9,6 +9,6 @@ Persistent storage for Timber including an overview activity
 * search
 * ~~save to sd card~~
 * ~~share~~
-* setup CI
+* ~~setup CI~~
 * deploy v1.0!
 * create a proper README explaining the usage of the library
