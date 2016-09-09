@@ -2,25 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- Set visible to true when feature implemented -->
     <item
         android:id="@+id/woodstorage_action_filter"
         android:icon="@drawable/ic_filter_outline_white_24dp"
         android:title="@string/woodstorage_action_filter"
-        android:visible="false"
-        app:showAsAction="always|withText" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/woodstorage_action_sort"
         android:icon="@drawable/ic_sort_white_24dp"
         android:title="@string/woodstorage_action_sort"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/woodstorage_action_save_on_sd"
         android:icon="@drawable/ic_save_white_24dp"
         android:title="@string/woodstorage_action_save"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/woodstorage_action_share"

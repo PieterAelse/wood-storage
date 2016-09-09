@@ -2,6 +2,7 @@ package com.jordylangen.woodstorage;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,6 +20,7 @@ public class WoodStorageViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.woodstorage_overview_toolbar);
+        toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.ic_overflow_white_24dp));
         setSupportActionBar(toolbar);
 
         woodStoragePresenter = PresenterCache.get(R.id.view_wood_storage);
