@@ -18,6 +18,7 @@ public class WoodStorageWorker implements Action1<LogEntry> {
 
     public void start() {
         subscription = logObserver.subscribeOn(Schedulers.io())
+                .onBackpressureBuffer()
                 .observeOn(Schedulers.io())
                 .subscribe(this);
     }

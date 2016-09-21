@@ -2,4 +2,17 @@
     package="com.jordylangen.woodstorage">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application>
+        <activity android:name="com.jordylangen.woodstorage.WoodStorageViewActivity"
+            android:theme="@style/WoodStorageActivity"
+            android:taskAffinity="com.jordylangen.woodstorage"
+            android:icon="@drawable/wood_storage_icon"
+            android:label="@string/woodstorage_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>
