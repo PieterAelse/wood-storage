@@ -2,10 +2,11 @@ package com.jordylangen.woodstorage.view
 
 import android.content.Context
 import com.jordylangen.woodstorage.*
-import rx.Observable
-import rx.Subscription
-import rx.functions.Action1
-import rx.subjects.PublishSubject
+import io.reactivex.Flowable
+import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
+import io.reactivex.subjects.PublishSubject
 
 class TagFilterPresenterSpec extends RxSpecification {
 
@@ -31,7 +32,7 @@ class TagFilterPresenterSpec extends RxSpecification {
         presenter.setup(view)
 
         then:
-        1 * storage.load() >> Observable.empty()
+        1 * storage.load() >> Flowable.empty()
         0 * view._
     }
 
@@ -45,7 +46,7 @@ class TagFilterPresenterSpec extends RxSpecification {
                 new LogEntry("MyService", 1, "onDestroy of MyService"),
         ]
 
-        storage.load() >> Observable.from(logs)
+        storage.load() >> Flowable.fromIterable(logs)
 
         when:
         presenter.setup(view)
@@ -64,7 +65,7 @@ class TagFilterPresenterSpec extends RxSpecification {
                 new LogEntry("MyService", 1, "onDestroy of MyService"),
         ]
 
-        storage.load() >> Observable.from(logs)
+        storage.load() >> Flowable.fromIterable(logs)
 
         when:
         presenter.setup(view)
@@ -85,14 +86,14 @@ class TagFilterPresenterSpec extends RxSpecification {
                 new LogEntry("MyService", 1, "onCreate of MyService")
         ]
 
-        storage.load() >> Observable.from(logs)
+        storage.load() >> Flowable.fromIterable(logs)
         presenter.setup(view)
 
         when:
         List<SelectableTag> tags = null;
-        presenter.observeSelectedTags().subscribe(new Action1<List<SelectableTag>>() {
+        presenter.observeSelectedTags().subscribe(new Consumer<List<SelectableTag>>() {
             @Override
-            void call(List<SelectableTag> selectableTags) {
+            void accept(List<SelectableTag> selectableTags) {
                 tags = selectableTags
             }
         })
@@ -108,7 +109,7 @@ class TagFilterPresenterSpec extends RxSpecification {
 
     def "should call onCompleted and unsubscribe upon teardown"() {
         given:
-        def logEntriesSubscription = Mock(Subscription)
+        def logEntriesSubscription = Mock(Disposable)
         def selectedTagsPublishSubject = PublishSubject.create()
         presenter.logEntriesSubscription = logEntriesSubscription
         presenter.selectedTagsPublishSubject = selectedTagsPublishSubject
@@ -117,8 +118,8 @@ class TagFilterPresenterSpec extends RxSpecification {
         presenter.teardown()
 
         then:
-        selectedTagsPublishSubject.hasCompleted()
-        1 * logEntriesSubscription.isUnsubscribed()
-        1 * logEntriesSubscription.unsubscribe()
+        selectedTagsPublishSubject.hasComplete()
+        1 * logEntriesSubscription.isDisposed()
+        1 * logEntriesSubscription.dispose()
     }
 }

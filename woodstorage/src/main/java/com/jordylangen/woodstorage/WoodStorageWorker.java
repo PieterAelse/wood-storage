@@ -1,17 +1,17 @@
 package com.jordylangen.woodstorage;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Flowable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
-public class WoodStorageWorker implements Action1<LogEntry> {
+public class WoodStorageWorker {
 
     private Storage storage;
-    private Observable<LogEntry> logObserver;
-    private Subscription subscription;
+    private Flowable<LogEntry> logObserver;
+    private Disposable subscription;
 
-    public WoodStorageWorker(Storage storage, Observable<LogEntry> logObserver) {
+    public WoodStorageWorker(Storage storage, Flowable<LogEntry> logObserver) {
         this.storage = storage;
         this.logObserver = logObserver;
     }
@@ -20,16 +20,16 @@ public class WoodStorageWorker implements Action1<LogEntry> {
         subscription = logObserver.subscribeOn(Schedulers.io())
                 .onBackpressureBuffer()
                 .observeOn(Schedulers.io())
-                .subscribe(this);
+                .subscribe(new Consumer<LogEntry>() {
+                    @Override
+                    public void accept(LogEntry logEntry) throws Exception {
+                        storage.save(logEntry);
+                    }
+                });
     }
 
     public void stop() {
-        subscription.unsubscribe();
-    }
-
-    @Override
-    public void call(LogEntry logEntry) {
-        storage.save(logEntry);
+        subscription.dispose();
     }
 
     public Storage getStorage() {

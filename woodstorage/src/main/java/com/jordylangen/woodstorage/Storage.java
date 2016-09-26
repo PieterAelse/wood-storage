@@ -1,14 +1,13 @@
 package com.jordylangen.woodstorage;
 
+import io.reactivex.Flowable;
 import java.io.File;
-
-import rx.Observable;
 
 public interface Storage {
 
     void save(LogEntry logEntry);
 
-    Observable<LogEntry> load();
+    Flowable<LogEntry> load();
 
     File copyToSDCard();
 

@@ -4,10 +4,10 @@ import android.os.Environment
 import android.util.Log
 import mockit.Mock
 import mockit.MockUp
+import io.reactivex.functions.Consumer
+import io.reactivex.subscribers.TestSubscriber
 import org.junit.Rule
 import org.junit.rules.TestName
-import rx.functions.Action1
-import rx.observers.TestSubscriber
 
 class FileStorageSpec extends RxSpecification {
 
@@ -49,9 +49,9 @@ class FileStorageSpec extends RxSpecification {
 
         List<LogEntry> logs = []
         fileStorage.load()
-                .subscribe(new Action1<LogEntry>() {
+                .subscribe(new Consumer<LogEntry>() {
             @Override
-            void call(LogEntry logStatement) {
+            void accept(LogEntry logStatement) {
                 logs.add(logStatement)
             }
         })
@@ -77,9 +77,9 @@ class FileStorageSpec extends RxSpecification {
 
         List<LogEntry> logs = []
         fileStorage.load()
-                .subscribe(new Action1<LogEntry>() {
+                .subscribe(new Consumer<LogEntry>() {
             @Override
-            void call(LogEntry logStatement) {
+            void accept(LogEntry logStatement) {
                 logs.add(logStatement)
             }
         })
@@ -101,9 +101,9 @@ class FileStorageSpec extends RxSpecification {
 
         List<LogEntry> logStatements = []
         fileStorage.load()
-                .subscribe(new Action1<LogEntry>() {
+                .subscribe(new Consumer<LogEntry>() {
             @Override
-            void call(LogEntry logStatement) {
+            void accept(LogEntry logStatement) {
                 logStatements.add(logStatement)
             }
         })
@@ -133,9 +133,9 @@ class FileStorageSpec extends RxSpecification {
 
         List<LogEntry> logs = []
         fileStorage.load()
-                .subscribe(new Action1<LogEntry>() {
+                .subscribe(new Consumer<LogEntry>() {
             @Override
-            void call(LogEntry logStatement) {
+            void accept(LogEntry logStatement) {
                 logs.add(logStatement)
             }
         })

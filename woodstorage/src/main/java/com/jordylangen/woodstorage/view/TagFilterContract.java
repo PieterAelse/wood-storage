@@ -2,7 +2,7 @@ package com.jordylangen.woodstorage.view;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public interface TagFilterContract extends Contract {
 

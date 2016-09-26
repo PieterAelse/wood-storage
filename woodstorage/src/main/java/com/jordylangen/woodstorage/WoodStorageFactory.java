@@ -2,7 +2,7 @@ package com.jordylangen.woodstorage;
 
 import android.content.Context;
 
-import rx.subjects.PublishSubject;
+import io.reactivex.processors.PublishProcessor;
 
 public final class WoodStorageFactory {
 
@@ -13,14 +13,14 @@ public final class WoodStorageFactory {
     }
 
     public static WoodStorageTree getInstance(Context context, StorageFactory storageFactory) {
-        PublishSubject<LogEntry> publishSubject = PublishSubject.create();
+        PublishProcessor<LogEntry> publishSubject = PublishProcessor.create();
         WoodStorageTree tree = new WoodStorageTree(publishSubject);
 
         if (WORKER != null) {
             stop();
         }
 
-        WORKER = new WoodStorageWorker(storageFactory.create(context), publishSubject.asObservable());
+        WORKER = new WoodStorageWorker(storageFactory.create(context), publishSubject);
         WORKER.start();
 
         return tree;

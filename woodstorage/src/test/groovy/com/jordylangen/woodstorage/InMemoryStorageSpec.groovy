@@ -1,7 +1,7 @@
 package com.jordylangen.woodstorage
 
 import android.util.Log
-import rx.functions.Action1
+import io.reactivex.functions.Consumer
 
 class InMemoryStorageSpec extends RxSpecification {
 
@@ -18,9 +18,9 @@ class InMemoryStorageSpec extends RxSpecification {
         }
 
         List<LogEntry> logs = [];
-        storage.load().subscribe(new Action1<LogEntry>() {
+        storage.load().subscribe(new Consumer<LogEntry>() {
             @Override
-            void call(LogEntry logStatement) {
+            void accept(LogEntry logStatement) {
                 logs.add(logStatement)
             }
         })
@@ -40,9 +40,9 @@ class InMemoryStorageSpec extends RxSpecification {
         storage.clear()
 
         List<LogEntry> logs = [];
-        storage.load().subscribe(new Action1<LogEntry>() {
+        storage.load().subscribe(new Consumer<LogEntry>() {
             @Override
-            void call(LogEntry logStatement) {
+            void accept(LogEntry logStatement) {
                 logs.add(logStatement)
             }
         })

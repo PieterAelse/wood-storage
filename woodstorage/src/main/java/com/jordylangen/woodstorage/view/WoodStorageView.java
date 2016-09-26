@@ -12,7 +12,6 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.LinearLayout;
 
 import com.jordylangen.woodstorage.LogEntry;
 import com.jordylangen.woodstorage.R;

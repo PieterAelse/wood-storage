@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Flowable;
 
 public class InMemoryStorage implements Storage {
 
@@ -26,8 +26,8 @@ public class InMemoryStorage implements Storage {
     }
 
     @Override
-    public Observable<LogEntry> load() {
-        return Observable.from(logEntries);
+    public Flowable<LogEntry> load() {
+        return Flowable.fromIterable(logEntries);
     }
 
     @Override

@@ -6,18 +6,19 @@ import com.jordylangen.woodstorage.WoodStorageFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
-import rx.subjects.PublishSubject;
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 
 public class TagFilterPresenter implements TagFilterContract.Presenter {
 
     private TagFilterContract.View view;
-    private Subscription logEntriesSubscription;
+    private Disposable logEntriesSubscription;
     private List<SelectableTag> selectableTags;
     private PublishSubject<List<SelectableTag>> selectedTagsPublishSubject;
 
@@ -40,26 +41,26 @@ public class TagFilterPresenter implements TagFilterContract.Presenter {
 
     @Override
     public void teardown() {
-        selectedTagsPublishSubject.onCompleted();
-        unsubscribe();
+        selectedTagsPublishSubject.onComplete();
+        dispose();
     }
 
-    private void unsubscribe() {
-        if (logEntriesSubscription != null && !logEntriesSubscription.isUnsubscribed()) {
-            logEntriesSubscription.unsubscribe();
+    private void dispose() {
+        if (logEntriesSubscription != null && !logEntriesSubscription.isDisposed()) {
+            logEntriesSubscription.dispose();
         }
     }
 
     private void subscribe() {
-        Observable<LogEntry> observable = WoodStorageFactory.getWorker() != null
+        Flowable<LogEntry> observable = WoodStorageFactory.getWorker() != null
                 ? WoodStorageFactory.getWorker().getStorage().load()
-                : Observable.<LogEntry>empty();
+                : Flowable.<LogEntry>empty();
 
         logEntriesSubscription = observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(new Func1<LogEntry, Boolean>() {
+                .filter(new Predicate<LogEntry>() {
                     @Override
-                    public Boolean call(LogEntry logEntry) {
+                    public boolean test(LogEntry logEntry) throws Exception {
                         if (logEntry.getTag() == null) {
                             return false;
                         }
@@ -73,9 +74,9 @@ public class TagFilterPresenter implements TagFilterContract.Presenter {
                         return true;
                     }
                 })
-                .subscribe(new Action1<LogEntry>() {
+                .subscribe(new Consumer<LogEntry>() {
                     @Override
-                    public void call(LogEntry logEntry) {
+                    public void accept(LogEntry logEntry) throws Exception {
                         SelectableTag selectableTag = new SelectableTag(logEntry.getTag(), true);
                         selectableTags.add(selectableTag);
                         view.add(selectableTag);
@@ -96,6 +97,6 @@ public class TagFilterPresenter implements TagFilterContract.Presenter {
 
     @Override
     public Observable<List<SelectableTag>> observeSelectedTags() {
-        return selectedTagsPublishSubject.asObservable();
+        return selectedTagsPublishSubject;
     }
 }
