@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/default_row_height">
-
-    <TextView
-        android:id="@+id/selectable_tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"/>
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/selectable_tag_container"
+                android:layout_width="match_parent"
+                android:layout_height="?android:listPreferredItemHeight"
+                android:background="?attr/selectableItemBackground">
 
     <CheckBox
-        android:id="@+id/selectable_tag_is_selected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" />
+            android:id="@+id/selectable_tag_is_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+    <TextView
+            android:layout_alignParentStart="true"
+            android:ellipsize="end"
+            android:layout_toStartOf="@id/selectable_tag_is_selected"
+            android:id="@+id/selectable_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            tools:text="Selectable tag"/>
+
 </RelativeLayout>

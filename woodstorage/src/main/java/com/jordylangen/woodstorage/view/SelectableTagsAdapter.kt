@@ -33,6 +33,13 @@ class SelectableTagsAdapter internal constructor(private val callback: Callback)
         holder.tagTextView.text = selectableTag.tag
         holder.isSelectedCheckbox.isChecked = selectableTag.isSelected
 
+        holder.container.setOnClickListener {
+            val newState = !selectableTag.isSelected
+            selectableTag.isSelected = newState
+            callback.tagSelectedChanged(selectableTag, newState)
+            notifyDataSetChanged()
+        }
+
         holder.isSelectedCheckbox.setOnCheckedChangeListener { _, isChecked ->
             selectableTag.isSelected = isChecked
             callback.tagSelectedChanged(selectableTag, isChecked)
@@ -55,6 +62,7 @@ class SelectableTagsAdapter internal constructor(private val callback: Callback)
     }
 
     inner class SelectableTagViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val container: View = itemView.findViewById(R.id.selectable_tag_container)
         val tagTextView: TextView = itemView.findViewById(R.id.selectable_tag)
         val isSelectedCheckbox: CheckBox = itemView.findViewById(R.id.selectable_tag_is_selected)
     }

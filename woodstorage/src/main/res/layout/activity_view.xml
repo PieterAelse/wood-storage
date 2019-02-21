@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jordylangen.woodstorage.view.WoodStorageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/view_wood_storage"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/woodstorage_overview_recyclerview"
+<com.jordylangen.woodstorage.view.WoodStorageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/view_wood_storage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/activity_padding" />
+        android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/woodstorage_overview_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/activity_padding"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical"/>
 
 </com.jordylangen.woodstorage.view.WoodStorageView>
