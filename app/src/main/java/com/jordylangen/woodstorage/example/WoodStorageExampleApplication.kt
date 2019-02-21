@@ -12,7 +12,7 @@ class WoodStorageExampleApplication : Application() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
-        Timber.plant(WoodStorageFactory.getInstance(this))
+        Timber.plant(WoodStorageFactory.getInstance(applicationContext.filesDir))
 
         Timber.d("example application started")
     }

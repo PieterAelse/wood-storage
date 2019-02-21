@@ -1,12 +1,10 @@
-package com.jordylangen.woodstorage
+package com.jordylangen.woodstorage.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-
-import com.jordylangen.woodstorage.view.PresenterCache
-import com.jordylangen.woodstorage.view.WoodStorageContract
+import com.jordylangen.woodstorage.R
 
 class WoodStorageViewActivity : AppCompatActivity() {
 
@@ -16,7 +14,7 @@ class WoodStorageViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view)
 
-        woodStoragePresenter = PresenterCache.get(R.id.view_wood_storage)
+        woodStoragePresenter = PresenterCache[R.id.view_wood_storage]
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

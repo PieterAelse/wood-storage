@@ -1,6 +1,6 @@
 package com.jordylangen.woodstorage.view
 
-import com.jordylangen.woodstorage.LogEntry
+import com.jordylangen.woodstorage.storage.LogEntry
 
 interface WoodStorageContract {
 

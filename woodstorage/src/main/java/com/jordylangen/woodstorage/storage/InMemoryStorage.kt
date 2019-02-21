@@ -1,7 +1,5 @@
 package com.jordylangen.woodstorage.storage
 
-import com.jordylangen.woodstorage.LogEntry
-
 import java.util.ArrayList
 
 import io.reactivex.Flowable

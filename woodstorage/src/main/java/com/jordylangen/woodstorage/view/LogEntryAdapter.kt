@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-import com.jordylangen.woodstorage.LogEntry
+import com.jordylangen.woodstorage.storage.LogEntry
 import com.jordylangen.woodstorage.R
-import com.jordylangen.woodstorage.utils.ColorUtils
+import com.jordylangen.woodstorage.view.utils.ColorUtils
 
 import java.text.SimpleDateFormat
 import java.util.ArrayList
@@ -80,12 +80,10 @@ class LogEntryAdapter : RecyclerView.Adapter<LogEntryAdapter.LogEntryViewHolder>
     }
 
     inner class LogEntryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val colorIndicatorView: View = itemView.findViewById(R.id.log_color_indicator)
         val tagTextView: TextView = itemView.findViewById(R.id.log_tag)
         val priorityTextView: TextView = itemView.findViewById(R.id.log_priority)
         val messageTextView: TextView = itemView.findViewById(R.id.log_message)
         val timestampTextView: TextView = itemView.findViewById(R.id.log_timestamp)
-
     }
 }

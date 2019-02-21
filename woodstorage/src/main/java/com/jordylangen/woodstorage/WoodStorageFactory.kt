@@ -1,32 +1,30 @@
 package com.jordylangen.woodstorage
 
-import android.content.Context
-
+import com.jordylangen.woodstorage.storage.LogEntry
 import com.jordylangen.woodstorage.storage.StorageFactory
 
 import io.reactivex.processors.PublishProcessor
+import java.io.File
 
 class WoodStorageFactory {
     companion object {
+        private val publishSubject = PublishProcessor.create<LogEntry>()
+        private val tree = WoodStorageTree(publishSubject)
+
         @JvmStatic
         var worker: WoodStorageWorker? = null
             private set
 
-        @JvmOverloads @JvmStatic
-        fun getInstance(context: Context?, storageFactory: StorageFactory = StorageFactory()): WoodStorageTree {
-            val publishSubject = PublishProcessor.create<LogEntry>()
-            val tree = WoodStorageTree(publishSubject)
-
-            worker?.stop()
-
-            worker = WoodStorageWorker(storageFactory.create(context), publishSubject).also { it.start() }
+        @JvmStatic
+        fun getInstance(directory: File, storageFactory: StorageFactory = StorageFactory()): WoodStorageTree {
+            stop()
+            worker = WoodStorageWorker(storageFactory.create(directory), publishSubject).also { it.start() }
 
             return tree
         }
+
+        @Synchronized
+        @JvmStatic
+        private fun stop() = worker?.stop()
     }
-
-
-
-    @Synchronized
-    private fun stop() = worker?.stop()
 }

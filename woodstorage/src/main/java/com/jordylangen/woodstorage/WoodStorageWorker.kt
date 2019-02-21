@@ -1,5 +1,6 @@
 package com.jordylangen.woodstorage
 
+import com.jordylangen.woodstorage.storage.LogEntry
 import com.jordylangen.woodstorage.storage.Storage
 
 import io.reactivex.Flowable

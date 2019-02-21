@@ -1,7 +1,7 @@
 <manifest package="com.jordylangen.woodstorage" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application>
-        <activity android:name="com.jordylangen.woodstorage.WoodStorageViewActivity"
+        <activity android:name="com.jordylangen.woodstorage.view.WoodStorageViewActivity"
             android:theme="@style/WoodStorageActivity"
             android:taskAffinity="com.jordylangen.woodstorage"
             android:icon="@drawable/wood_storage_icon"

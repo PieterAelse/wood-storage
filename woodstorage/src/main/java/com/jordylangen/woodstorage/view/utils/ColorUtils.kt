@@ -1,4 +1,4 @@
-package com.jordylangen.woodstorage.utils
+package com.jordylangen.woodstorage.view.utils
 
 import android.graphics.Color
 

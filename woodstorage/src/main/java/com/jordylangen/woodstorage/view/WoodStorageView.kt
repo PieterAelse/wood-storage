@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 
-import com.jordylangen.woodstorage.LogEntry
+import com.jordylangen.woodstorage.storage.LogEntry
 import com.jordylangen.woodstorage.R
 
 import androidx.appcompat.app.AlertDialog

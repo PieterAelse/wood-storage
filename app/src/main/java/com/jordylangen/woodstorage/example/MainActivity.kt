@@ -5,7 +5,7 @@ import android.os.PersistableBundle
 import android.os.Bundle
 import android.view.View
 
-import com.jordylangen.woodstorage.WoodStorageViewActivity
+import com.jordylangen.woodstorage.view.WoodStorageViewActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import timber.log.Timber

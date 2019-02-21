@@ -1,7 +1,7 @@
 package com.jordylangen.woodstorage.view
 
-import android.content.Context
 import com.jordylangen.woodstorage.*
+import com.jordylangen.woodstorage.storage.LogEntry
 import com.jordylangen.woodstorage.storage.Storage
 import com.jordylangen.woodstorage.storage.StorageFactory
 import io.reactivex.Flowable
@@ -20,9 +20,9 @@ class TagFilterPresenterSpec extends RxSpecification {
         view = Mock(TagFilterContract.View)
         presenter = new TagFilterPresenter()
 
-        WoodStorageFactory.getInstance(null, new StorageFactory() {
+        WoodStorageFactory.getInstance(Mock(File), new StorageFactory() {
             @Override
-            Storage create(Context context) {
+            Storage create(File directory) {
                 return storage
             }
         })
@@ -91,7 +91,7 @@ class TagFilterPresenterSpec extends RxSpecification {
         presenter.setup(view)
 
         when:
-        List<SelectableTag> tags = null;
+        List<SelectableTag> tags = null
         presenter.observeSelectedTags().subscribe(new Consumer<List<SelectableTag>>() {
             @Override
             void accept(List<SelectableTag> selectableTags) {

@@ -1,7 +1,7 @@
 package com.jordylangen.woodstorage.view
 
-import android.content.Context
 import com.jordylangen.woodstorage.*
+import com.jordylangen.woodstorage.storage.LogEntry
 import com.jordylangen.woodstorage.storage.Storage
 import com.jordylangen.woodstorage.storage.StorageFactory
 import io.reactivex.Flowable
@@ -19,9 +19,9 @@ class WoodStoragePresenterSpec extends RxSpecification {
         view = Mock(WoodStorageContract.View)
         presenter = new WoodStoragePresenter()
 
-        WoodStorageFactory.getInstance(null, new StorageFactory() {
+        WoodStorageFactory.getInstance(Mock(File), new StorageFactory() {
             @Override
-            Storage create(Context context) {
+            Storage create(File directory) {
                 return storage
             }
         })
@@ -38,7 +38,7 @@ class WoodStoragePresenterSpec extends RxSpecification {
 
     def "should add all logs to the view in normal order"() {
         given:
-        def count = 10;
+        def count = 10
         def logs = []
 
         for (def index = 0; index < count; index++) {
@@ -57,7 +57,7 @@ class WoodStoragePresenterSpec extends RxSpecification {
 
     def "should clear all logs upon sort order inversion and add them again inverted"() {
         given:
-        def count = 10;
+        def count = 10
         def logs = []
 
         for (def index = 0; index < count; index++) {

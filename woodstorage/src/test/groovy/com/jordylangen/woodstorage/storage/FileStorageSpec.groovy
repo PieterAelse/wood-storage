@@ -1,8 +1,7 @@
-package com.jordylangen.woodstorage
+package com.jordylangen.woodstorage.storage
 
 import android.util.Log
-import com.jordylangen.woodstorage.storage.FileStorage
-import com.jordylangen.woodstorage.storage.StorageConfig
+import com.jordylangen.woodstorage.RxSpecification
 import io.reactivex.functions.Consumer
 import io.reactivex.subscribers.TestSubscriber
 import org.junit.Rule
@@ -58,7 +57,7 @@ class FileStorageSpec extends RxSpecification {
         then:
         !logs.isEmpty()
         logs.size() == 1
-        logs[0].equals(log)
+        logs[0] == log
     }
 
     def "should not write more logs then the specified max, and delete the required amount of logs"() {
@@ -110,7 +109,7 @@ class FileStorageSpec extends RxSpecification {
         then:
         !logStatements.isEmpty()
         logStatements.size() == 1
-        logStatements[0].equals(log)
+        logStatements[0] == log
 
         when:
         fileStorage.save(log)

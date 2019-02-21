@@ -1,4 +1,4 @@
-package com.jordylangen.woodstorage
+package com.jordylangen.woodstorage.storage
 
 import java.text.ParseException
 import java.text.SimpleDateFormat

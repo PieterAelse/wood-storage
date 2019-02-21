@@ -1,4 +1,6 @@
-package com.jordylangen.woodstorage
+package com.jordylangen.woodstorage.storage
+
+import com.jordylangen.woodstorage.RxSpecification
 
 class LogEntrySpec extends RxSpecification {
 

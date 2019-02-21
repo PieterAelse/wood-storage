@@ -1,7 +1,7 @@
-package com.jordylangen.woodstorage
+package com.jordylangen.woodstorage.storage
 
 import android.util.Log
-import com.jordylangen.woodstorage.storage.InMemoryStorage
+import com.jordylangen.woodstorage.RxSpecification
 import io.reactivex.functions.Consumer
 
 class InMemoryStorageSpec extends RxSpecification {

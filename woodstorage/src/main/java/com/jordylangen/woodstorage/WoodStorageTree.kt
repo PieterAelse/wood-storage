@@ -1,5 +1,6 @@
 package com.jordylangen.woodstorage
 
+import com.jordylangen.woodstorage.storage.LogEntry
 import io.reactivex.processors.PublishProcessor
 import timber.log.Timber
 

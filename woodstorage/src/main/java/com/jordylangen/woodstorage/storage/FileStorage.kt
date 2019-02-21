@@ -1,9 +1,5 @@
 package com.jordylangen.woodstorage.storage
 
-import android.util.Log
-
-import com.jordylangen.woodstorage.LogEntry
-
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.File
@@ -17,11 +13,11 @@ import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.processors.ReplayProcessor
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 class FileStorage(private val storageConfig: StorageConfig) : Storage {
 
     companion object {
-        private const val TAG = "FileStorage"
         private const val MAX_LOG_COUNT = 1028
         private const val DELETE_COUNT = 256
         private const val DELETE_OFFSET_BY_INDEX_AND_NEW_WRITE = 2
@@ -43,7 +39,7 @@ class FileStorage(private val storageConfig: StorageConfig) : Storage {
 
                 return lineCount
             } catch (exception: IOException) {
-                Log.e(TAG, "could not get the line count for " + file.absolutePath, exception)
+                Timber.e(exception, "could not get the line count for ${file.absolutePath}")
                 return -1
             }
         }
@@ -97,7 +93,7 @@ class FileStorage(private val storageConfig: StorageConfig) : Storage {
             out.close()
 
         } catch (exception: IOException) {
-            Log.e(TAG, "could not trim the file " + file.absolutePath, exception)
+            Timber.e(exception, "could not trim the file ${file.absolutePath}")
         }
 
     }
@@ -112,7 +108,7 @@ class FileStorage(private val storageConfig: StorageConfig) : Storage {
             out.flush()
             out.close()
         } catch (exception: IOException) {
-            Log.e(TAG, "could not write to file at " + file.absolutePath, exception)
+            Timber.e(exception, "could not write to file at ${file.absolutePath}")
         }
 
     }
@@ -147,7 +143,7 @@ class FileStorage(private val storageConfig: StorageConfig) : Storage {
                 fileWriter.close()
             }
         } catch (exception: IOException) {
-            Log.e(TAG, "could not write to file at " + file.absolutePath, exception)
+            Timber.e(exception, "could not write to file at ${file.absolutePath}")
         }
 
     }
@@ -168,7 +164,7 @@ class FileStorage(private val storageConfig: StorageConfig) : Storage {
 
             reader.close()
         } catch (exception: IOException) {
-            Log.e(TAG, "could not write to file at " + file.absolutePath, exception)
+            Timber.e(exception, "could not read from file at ${file.absolutePath}")
             return ArrayList()
         }
 
