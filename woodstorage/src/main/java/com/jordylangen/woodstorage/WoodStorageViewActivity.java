@@ -1,8 +1,7 @@
 package com.jordylangen.woodstorage;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,8 +16,6 @@ public class WoodStorageViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.woodstorage_overview_toolbar);
-        setSupportActionBar(toolbar);
 
         woodStoragePresenter = PresenterCache.get(R.id.view_wood_storage);
     }

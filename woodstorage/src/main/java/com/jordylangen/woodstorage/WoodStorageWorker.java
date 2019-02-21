@@ -1,7 +1,8 @@
 package com.jordylangen.woodstorage;
 
+import com.jordylangen.woodstorage.storage.Storage;
+
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -12,24 +13,24 @@ public class WoodStorageWorker {
     private Flowable<LogEntry> logObserver;
     private Disposable subscription;
 
-    public WoodStorageWorker(Storage storage, Flowable<LogEntry> logObserver) {
+    WoodStorageWorker(Storage storage, Flowable<LogEntry> logObserver) {
         this.storage = storage;
         this.logObserver = logObserver;
     }
 
-    public void start() {
+    void start() {
         subscription = logObserver.subscribeOn(Schedulers.io())
                 .onBackpressureBuffer()
                 .observeOn(Schedulers.io())
                 .subscribe(new Consumer<LogEntry>() {
                     @Override
-                    public void accept(LogEntry logEntry) throws Exception {
+                    public void accept(LogEntry logEntry) {
                         storage.save(logEntry);
                     }
                 });
     }
 
-    public void stop() {
+    void stop() {
         subscription.dispose();
     }
 

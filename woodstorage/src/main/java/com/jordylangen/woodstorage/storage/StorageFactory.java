@@ -1,4 +1,4 @@
-package com.jordylangen.woodstorage;
+package com.jordylangen.woodstorage.storage;
 
 import android.content.Context;
 import android.util.Log;

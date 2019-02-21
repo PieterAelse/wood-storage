@@ -1,13 +1,14 @@
 package com.jordylangen.woodstorage.view;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import com.jordylangen.woodstorage.R;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class TagFilterView extends BaseView<TagFilterContract.View, TagFilterContract.Presenter> implements TagFilterContract.View, SelectableTagsAdapter.Callback {
 
@@ -27,7 +28,7 @@ public class TagFilterView extends BaseView<TagFilterContract.View, TagFilterCon
 
     @Override
     protected void setup() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.dialog_tag_filter_recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.dialog_tag_filter_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new SelectableTagsAdapter(this);

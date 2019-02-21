@@ -1,13 +1,14 @@
 apply plugin: 'com.android.library'
-apply plugin: 'groovyx.android'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion android_compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 24
+        minSdkVersion android_minSdkVersion
+        targetSdkVersion android_targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -25,20 +26,30 @@ android {
 }
 
 dependencies {
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.0-RC1'
-    compile 'io.reactivex.rxjava2:rxjava:2.0.0-RC2'
+    implementation "com.google.android.material:material:$materialVersion"
 
-    compile 'com.jakewharton.timber:timber:4.3.0'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
-    compile 'com.android.support:appcompat-v7:24.2.0'
+    // AndroidX
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.core:core-ktx:$ktxVersion"
+    implementation "androidx.recyclerview:recyclerview:$recyclerVersion"
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.codehaus.groovy:groovy-all:2.4.6'
-    testCompile 'org.codehaus.groovy:groovy:2.4.6:grooid'
-    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
-    testCompile 'cglib:cglib-nodep:3.2.2'
-    testCompile 'org.objenesis:objenesis:2.2'
-    testCompile 'org.jmockit:jmockit:1.25'
+    // RxJava
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.5'
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // Testing
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.codehaus.groovy:groovy-all:2.4.15'
+    testImplementation 'org.codehaus.groovy:groovy:2.4.12:grooid'
+    testImplementation 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testImplementation 'cglib:cglib-nodep:3.2.2'
+    testImplementation 'org.objenesis:objenesis:2.6'
+    testImplementation 'org.jmockit:jmockit:1.25'
 }
 
+apply plugin: 'groovyx.android'
 apply from: 'quality.gradle'

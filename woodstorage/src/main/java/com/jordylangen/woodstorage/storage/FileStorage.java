@@ -1,6 +1,8 @@
-package com.jordylangen.woodstorage;
+package com.jordylangen.woodstorage.storage;
 
 import android.util.Log;
+
+import com.jordylangen.woodstorage.LogEntry;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

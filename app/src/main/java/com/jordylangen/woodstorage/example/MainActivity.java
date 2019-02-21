@@ -2,12 +2,12 @@ package com.jordylangen.woodstorage.example;
 
 import android.content.Intent;
 import android.os.PersistableBundle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.jordylangen.woodstorage.WoodStorageViewActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {

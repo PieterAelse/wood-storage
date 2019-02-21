@@ -1,15 +1,15 @@
 package com.jordylangen.woodstorage.view;
 
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.LinearLayout;
 
 import com.jordylangen.woodstorage.LogEntry;
 import com.jordylangen.woodstorage.R;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class WoodStorageView extends BaseView<WoodStorageContract.View, WoodStorageContract.Presenter> implements WoodStorageContract.View {
 
@@ -29,7 +29,7 @@ public class WoodStorageView extends BaseView<WoodStorageContract.View, WoodStor
 
     @Override
     protected void setup() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.woodstorage_overview_recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.woodstorage_overview_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new LogEntryAdapter();

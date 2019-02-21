@@ -2,6 +2,8 @@ package com.jordylangen.woodstorage.view
 
 import android.content.Context
 import com.jordylangen.woodstorage.*
+import com.jordylangen.woodstorage.storage.Storage
+import com.jordylangen.woodstorage.storage.StorageFactory
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -121,7 +123,7 @@ class WoodStoragePresenterSpec extends RxSpecification {
         ]
 
         def tagFilterPresenter = Mock(TagFilterContract.Presenter)
-        tagFilterPresenter.observeSelectedTags() >> Observable.fromIterable(selectableTags).toList()
+        tagFilterPresenter.observeSelectedTags() >> Observable.fromIterable(selectableTags).toList().toObservable()
 
         def logs = [
                 new LogEntry("MyActivity", 1, "onCreate of Activity"),

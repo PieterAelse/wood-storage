@@ -1,5 +1,6 @@
 package com.jordylangen.woodstorage;
 
+import androidx.annotation.NonNull;
 import io.reactivex.processors.PublishProcessor;
 import timber.log.Timber;
 
@@ -12,7 +13,7 @@ public class WoodStorageTree extends Timber.DebugTree {
     }
 
     @Override
-    protected void log(int priority, String tag, String message, Throwable t) {
+    protected void log(int priority, String tag, @NonNull String message, Throwable t) {
         LogEntry logEntry = new LogEntry(tag, priority, message);
         logEntryPublishProcessor.onNext(logEntry);
     }

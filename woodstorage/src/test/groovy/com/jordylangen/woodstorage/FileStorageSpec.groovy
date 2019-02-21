@@ -1,6 +1,8 @@
 package com.jordylangen.woodstorage
 
 import android.util.Log
+import com.jordylangen.woodstorage.storage.FileStorage
+import com.jordylangen.woodstorage.storage.StorageConfig
 import io.reactivex.functions.Consumer
 import io.reactivex.subscribers.TestSubscriber
 import org.junit.Rule

@@ -142,6 +142,7 @@ class WoodStoragePresenter implements WoodStorageContract.Presenter {
                         return selectableTag.getTag();
                     }
                 })
-                .toList();
+                .toList()
+                .toObservable();
     }
 }

@@ -1,6 +1,5 @@
 package com.jordylangen.woodstorage.view;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,24 +12,27 @@ import com.jordylangen.woodstorage.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class SelectableTagsAdapter extends RecyclerView.Adapter<SelectableTagsAdapter.SelectableTagViewHolder> {
 
     private Callback callback;
     private List<SelectableTag> selectableTags;
 
-    public SelectableTagsAdapter(Callback callback) {
+    SelectableTagsAdapter(Callback callback) {
         this.callback = callback;
         selectableTags = new ArrayList<>();
     }
 
     @Override
-    public SelectableTagViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SelectableTagViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_selectable_tag, parent, false);
         return new SelectableTagViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(SelectableTagViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SelectableTagViewHolder holder, int position) {
         final SelectableTag selectableTag = selectableTags.get(position);
         holder.tagTextView.setText(selectableTag.getTag());
         holder.isSelectedCheckbox.setChecked(selectableTag.isSelected());
@@ -59,20 +61,19 @@ public class SelectableTagsAdapter extends RecyclerView.Adapter<SelectableTagsAd
         notifyDataSetChanged();
     }
 
-    public class SelectableTagViewHolder extends RecyclerView.ViewHolder {
+    class SelectableTagViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tagTextView;
         private CheckBox isSelectedCheckbox;
 
-        public SelectableTagViewHolder(View itemView) {
+        SelectableTagViewHolder(View itemView) {
             super(itemView);
-            tagTextView = (TextView) itemView.findViewById(R.id.selectable_tag);
-            isSelectedCheckbox = (CheckBox) itemView.findViewById(R.id.selectable_tag_is_selected);
+            tagTextView = itemView.findViewById(R.id.selectable_tag);
+            isSelectedCheckbox = itemView.findViewById(R.id.selectable_tag_is_selected);
         }
     }
 
     public interface Callback {
-
         void tagSelectedChanged(SelectableTag selectableTag, boolean isChecked);
     }
 }

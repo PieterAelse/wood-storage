@@ -1,7 +1,6 @@
 package com.jordylangen.woodstorage.view;
 
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,21 +18,25 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class LogEntryAdapter extends RecyclerView.Adapter<LogEntryAdapter.LogEntryViewHolder> {
 
+    @SuppressLint("ConstantLocale")
     private static final SimpleDateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
 
     private List<LogEntry> logs = new ArrayList<>();
     private Map<String, Integer> tagColors = new HashMap<>();
 
     @Override
-    public LogEntryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LogEntryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_log, parent, false);
         return new LogEntryViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(LogEntryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull LogEntryViewHolder holder, int position) {
         LogEntry log = logs.get(position);
         holder.tagTextView.setText(log.getTag());
         holder.messageTextView.setText(log.getMessage());
@@ -86,7 +89,7 @@ public class LogEntryAdapter extends RecyclerView.Adapter<LogEntryAdapter.LogEnt
         notifyDataSetChanged();
     }
 
-    public class LogEntryViewHolder extends RecyclerView.ViewHolder {
+    class LogEntryViewHolder extends RecyclerView.ViewHolder {
 
         private View colorIndicatorView;
         private TextView tagTextView;
@@ -94,14 +97,14 @@ public class LogEntryAdapter extends RecyclerView.Adapter<LogEntryAdapter.LogEnt
         private TextView messageTextView;
         private TextView timestampTextView;
 
-        public LogEntryViewHolder(View itemView) {
+        LogEntryViewHolder(View itemView) {
             super(itemView);
 
             colorIndicatorView = itemView.findViewById(R.id.log_color_indicator);
-            tagTextView = (TextView) itemView.findViewById(R.id.log_tag);
-            priorityTextView = (TextView) itemView.findViewById(R.id.log_priority);
-            messageTextView = (TextView) itemView.findViewById(R.id.log_message);
-            timestampTextView = (TextView) itemView.findViewById(R.id.log_timestamp);
+            tagTextView = itemView.findViewById(R.id.log_tag);
+            priorityTextView = itemView.findViewById(R.id.log_priority);
+            messageTextView = itemView.findViewById(R.id.log_message);
+            timestampTextView = itemView.findViewById(R.id.log_timestamp);
         }
     }
 }

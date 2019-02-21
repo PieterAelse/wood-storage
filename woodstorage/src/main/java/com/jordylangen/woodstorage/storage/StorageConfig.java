@@ -1,4 +1,4 @@
-package com.jordylangen.woodstorage;
+package com.jordylangen.woodstorage.storage;
 
 public class StorageConfig {
 

@@ -1,13 +1,15 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion android_compileSdkVersion
 
     defaultConfig {
-        applicationId "com.jordylangen.woodstorage"
-        minSdkVersion 14
-        targetSdkVersion 24
+        applicationId "nl.piotapps.woodstorage"
+        minSdkVersion android_minSdkVersion
+        targetSdkVersion android_targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -20,6 +22,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':woodstorage')
+    implementation project(':woodstorage')
+
+    implementation "com.google.android.material:material:$materialVersion"
+
+    // AndroidX
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.core:core-ktx:$ktxVersion"
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }

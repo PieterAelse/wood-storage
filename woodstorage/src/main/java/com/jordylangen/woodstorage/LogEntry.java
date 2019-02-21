@@ -8,12 +8,12 @@ import java.util.Locale;
 
 public class LogEntry {
 
-    static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyMMddHHmmss", Locale.ENGLISH);
+    private static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyMMddHHmmss", Locale.ENGLISH);
 
-    static final String SEPARATOR = "``";
-    static final String NEWLINE = "\n";
-    static final String NEWLINE_REPLACEMENT = "~~";
-    static final String NULL = "null";
+    private static final String SEPARATOR = "``";
+    private static final String NEWLINE = "\n";
+    private static final String NEWLINE_REPLACEMENT = "~~";
+    private static final String NULL = "null";
 
     private Date timeStamp;
     private String tag;
@@ -47,11 +47,11 @@ public class LogEntry {
         return timeStamp;
     }
 
-    String serialize() {
+    public String serialize() {
         return tag + SEPARATOR + priority + SEPARATOR + removeNewLines(message) + SEPARATOR + DATE_TIME_FORMAT.format(timeStamp);
     }
 
-    static LogEntry deserialize(String line) {
+    public static LogEntry deserialize(String line) {
         String[] values = line.split(SEPARATOR);
 
         String tag = values[0];
@@ -90,7 +90,7 @@ public class LogEntry {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof LogEntry)) {
+        if (!(obj instanceof LogEntry)) {
             return false;
         }
 

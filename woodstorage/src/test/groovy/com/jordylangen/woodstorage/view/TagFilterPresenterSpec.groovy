@@ -2,8 +2,9 @@ package com.jordylangen.woodstorage.view
 
 import android.content.Context
 import com.jordylangen.woodstorage.*
+import com.jordylangen.woodstorage.storage.Storage
+import com.jordylangen.woodstorage.storage.StorageFactory
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
 import io.reactivex.subjects.PublishSubject

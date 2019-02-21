@@ -2,8 +2,9 @@ package com.jordylangen.woodstorage;
 
 import android.content.Context;
 
+import com.jordylangen.woodstorage.storage.StorageFactory;
+
 import io.reactivex.processors.PublishProcessor;
-import io.reactivex.subjects.PublishSubject;
 
 public final class WoodStorageFactory {
 
@@ -27,7 +28,7 @@ public final class WoodStorageFactory {
         return tree;
     }
 
-    public static synchronized void stop() {
+    private static synchronized void stop() {
         WORKER.stop();
     }
 
