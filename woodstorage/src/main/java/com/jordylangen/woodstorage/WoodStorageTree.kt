@@ -8,7 +8,8 @@ class WoodStorageTree internal constructor(private val logEntryPublishProcessor:
     Timber.DebugTree() {
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        val logEntry = LogEntry(tag!!, priority, message)
+        val logEntry = LogEntry(tag, priority, message)
+
         logEntryPublishProcessor.onNext(logEntry)
     }
 }

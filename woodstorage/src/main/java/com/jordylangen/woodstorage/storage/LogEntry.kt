@@ -8,7 +8,7 @@ import java.util.Locale
 
 class LogEntry private constructor(val tag: String?, val priority: Int, val message: String?, val timeStamp: Date) {
 
-    constructor(tag: String, priority: Int, message: String) : this(tag, priority, message, Date())
+    constructor(tag: String?, priority: Int, message: String?) : this(tag, priority, message, Date())
 
     companion object {
         private val DATE_TIME_FORMAT = SimpleDateFormat("yyMMddHHmmss", Locale.ENGLISH)

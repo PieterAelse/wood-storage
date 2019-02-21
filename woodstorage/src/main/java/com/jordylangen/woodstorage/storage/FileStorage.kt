@@ -11,22 +11,20 @@ import java.util.ArrayList
 
 import io.reactivex.Flowable
 import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
 import io.reactivex.processors.ReplayProcessor
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class FileStorage(private val storageConfig: StorageConfig) : Storage {
+class FileStorage(pathToFile: String, private val storageConfig: StorageConfig) : Storage {
 
     companion object {
-        private const val MAX_LOG_COUNT = 1028
-        private const val DELETE_COUNT = 256
         private const val DELETE_OFFSET_BY_INDEX_AND_NEW_WRITE = 2
     }
 
-    private val file: File = File(storageConfig.pathToFile)
+    private val file: File = File(pathToFile)
     private var replayProcessor: ReplayProcessor<LogEntry>? = null
-
-    internal constructor(pathToFile: String) : this(StorageConfig(MAX_LOG_COUNT, DELETE_COUNT, pathToFile))
+    private var disposable: Disposable? = null
 
     private val lineCount: Int
         @Synchronized get() {
@@ -50,9 +48,7 @@ class FileStorage(private val storageConfig: StorageConfig) : Storage {
         ensureMaxLineCount(lineCount)
         write(logEntry)
 
-        if (replayProcessor != null) {
-            replayProcessor!!.onNext(logEntry)
-        }
+        replayProcessor?.onNext(logEntry)
     }
 
     @Synchronized
@@ -117,11 +113,12 @@ class FileStorage(private val storageConfig: StorageConfig) : Storage {
         if (replayProcessor == null) {
             replayProcessor = ReplayProcessor.create()
 
-            Observable.fromCallable { loadLogsFromFile() }
+            disposable = Observable.fromCallable { loadLogsFromFile() }
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .flatMap { logEntries -> Observable.fromIterable(logEntries) }
                 .subscribe { logEntry -> replayProcessor!!.onNext(logEntry) }
+
         }
 
         return replayProcessor
@@ -129,10 +126,9 @@ class FileStorage(private val storageConfig: StorageConfig) : Storage {
 
     override fun clear() {
         try {
-            if (replayProcessor != null) {
-                replayProcessor!!.onComplete()
-                replayProcessor = null
-            }
+            disposable?.dispose()
+            replayProcessor?.onComplete()
+            replayProcessor = null
 
             if (file.delete()) {
                 file.createNewFile()

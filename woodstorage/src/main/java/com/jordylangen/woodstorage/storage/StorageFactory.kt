@@ -10,7 +10,7 @@ open class StorageFactory {
         private const val STORAGE_FILE_NAME = "wood-storage.txt"
     }
 
-    open fun create(directory: File): Storage {
+    open fun create(directory: File, config: StorageConfig): Storage {
         try {
             val storageDirectory = File(directory, STORAGE_DIRECTORY)
             if (!storageDirectory.exists()) {
@@ -22,7 +22,7 @@ open class StorageFactory {
                 storageFile.createNewFile()
             }
 
-            return FileStorage(storageFile.absolutePath)
+            return FileStorage(storageFile.absolutePath, config)
         } catch (exception: Exception) {
             Timber.e(exception, "could not create the required storage file, falling back to in memory storage")
             return InMemoryStorage()

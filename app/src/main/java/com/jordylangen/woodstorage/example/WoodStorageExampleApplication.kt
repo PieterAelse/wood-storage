@@ -12,6 +12,8 @@ class WoodStorageExampleApplication : Application() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
+
+        //val config = StorageConfig(1024, 128)
         Timber.plant(WoodStorageFactory.getInstance(applicationContext.filesDir))
 
         Timber.d("example application started")
